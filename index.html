@@ -2310,7 +2310,11 @@ function formatSize(x,y,z){
     pipUnit.textContent=unit;
     pipEl.style.display='flex';
     _pipPosition();
-    setTimeout(function(){try{pipInput.focus();pipInput.select();}catch(ex){}},10);
+    // No auto-focus here (session 86): focusing immediately pops the mobile
+    // keyboard on every single gizmo release, which is distracting since most
+    // drags don't need a typed value. The popup just displays the live value;
+    // tapping #pip-input focuses it natively (browser default tap-to-focus)
+    // and brings up the keyboard only when the user actually wants to edit.
   };
   window._pipClose=function(){
     _pipEls();
